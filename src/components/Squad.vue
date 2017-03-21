@@ -1,8 +1,6 @@
 <template>
-    <div class="callboard__squad" :class="{ 'callboard__squad_active': state }" v-on:click="onClick()">
+    <div class="squad__item" :class="{ 'squad__item_active': state }" v-on:click="onClick()">
       {{ name }}
-      {{ state }}
-      {{ id }}
     </div>
 </template>
 

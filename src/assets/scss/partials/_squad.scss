@@ -1,16 +1,31 @@
-.callboard__squad {
+.squad {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 100px;
-  height: 50px;
-  border: 1px solid red;
+  width: 100%;
+  margin-top: 15px;
 
-  &_active {
-    background-color: red;
-  }
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid $blue-light;
+    border-radius: 2px;
+    background-color: transparent;
+    color: $onyx;
+    transition: color 0.25s ease-out;
+    cursor: pointer;
 
-  &:hover {
-    background-color: yellow;
+    &_active {
+      background-color: $pink-light;
+    }
+
+    &:hover {
+      background-color: $pink-light;
+    }
   }
 }

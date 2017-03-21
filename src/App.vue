@@ -1,11 +1,16 @@
 <template>
   <div id="app">
-    <hello></hello>
-    {{ msg }}
-    <squad name="Голубева" v-bind:id="0" v-bind:state="activeSquad[0]" v-on:removestyles="falseState"></squad>
-    <squad name="Зубов" v-bind:id="1" v-bind:state="activeSquad[1]" v-on:removestyles="falseState"></squad>
-    <squad name="Свешникова" v-bind:id="2" v-bind:state="activeSquad[2]" v-on:removestyles="falseState"></squad>
-    <squad name="Ворожцов" v-bind:id="3" v-bind:state="activeSquad[3]" v-on:removestyles="falseState"></squad>
+    <div class="callboard">
+      <div v-show="false">{{ msg }}</div>
+      <div class="callboard__container">
+        <div class="squad">
+          <squad name="Голубева" v-bind:id="0" v-bind:state="activeSquad[0]" v-on:removestyles="falseState"></squad>
+          <squad name="Зубов" v-bind:id="1" v-bind:state="activeSquad[1]" v-on:removestyles="falseState"></squad>
+          <squad name="Свешникова" v-bind:id="2" v-bind:state="activeSquad[2]" v-on:removestyles="falseState"></squad>
+          <squad name="Ворожцов" v-bind:id="3" v-bind:state="activeSquad[3]" v-on:removestyles="falseState"></squad>
+        </div>
+      </div>
+    </div>
     <!--<div class="row row_buttons">-->
       <!--<button class="group-button" v-on:click="changeGroup('golubeva')" v-bind:class="{ active : buttonActiveGolubeva }">Голубева</button>-->
       <!--<button class="group-button" v-on:click="changeGroup('sveshnikova')" v-bind:class="{ active : buttonActiveSveshnikova }">Свешникова</button>-->
@@ -36,7 +41,6 @@
 </template>
 
 <script>
-  import Hello from './components/Hello'
   import Squad from './components/Squad'
 
   export default {
@@ -48,7 +52,6 @@
       }
     },
     components: {
-      Hello,
       Squad,
     },
     methods: {
