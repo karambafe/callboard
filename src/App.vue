@@ -1,6 +1,11 @@
 <template>
   <div id="app">
+    <hello></hello>
     {{ msg }}
+    <squad name="Голубева" v-bind:id="0" v-bind:state="activeSquad[0]" v-on:removestyles="falseState"></squad>
+    <squad name="Зубов" v-bind:id="1" v-bind:state="activeSquad[1]" v-on:removestyles="falseState"></squad>
+    <squad name="Свешникова" v-bind:id="2" v-bind:state="activeSquad[2]" v-on:removestyles="falseState"></squad>
+    <squad name="Ворожцов" v-bind:id="3" v-bind:state="activeSquad[3]" v-on:removestyles="falseState"></squad>
     <!--<div class="row row_buttons">-->
       <!--<button class="group-button" v-on:click="changeGroup('golubeva')" v-bind:class="{ active : buttonActiveGolubeva }">Голубева</button>-->
       <!--<button class="group-button" v-on:click="changeGroup('sveshnikova')" v-bind:class="{ active : buttonActiveSveshnikova }">Свешникова</button>-->
@@ -31,11 +36,29 @@
 </template>
 
 <script>
+  import Hello from './components/Hello'
+  import Squad from './components/Squad'
+
   export default {
     name: 'app',
     data () {
       return {
-        msg: 'Test vue js'
+        msg: 'Test vue js',
+        activeSquad: [false, false, false, false]
+      }
+    },
+    components: {
+      Hello,
+      Squad,
+    },
+    methods: {
+      falseState: function (id) {
+        var i;
+        for (i = 0; i < this.activeSquad.length; ++i) {
+          this.activeSquad[i] = false;
+        }
+        this.activeSquad[id] = true;
+        this.msg = id;
       }
     }
   }
