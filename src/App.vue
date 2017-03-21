@@ -1,33 +1,33 @@
-<!--<div id="app">-->
-  <!--<div class="row row_buttons">-->
-    <!--<button class="group-button" v-on:click="changeGroup('golubeva')" v-bind:class="{ active : buttonActiveGolubeva }">Голубева</button>-->
-    <!--<button class="group-button" v-on:click="changeGroup('sveshnikova')" v-bind:class="{ active : buttonActiveSveshnikova }">Свешникова</button>-->
-    <!--<button class="group-button" v-on:click="changeGroup('belov')" v-bind:class="{ active : buttonActiveBelov }">Белов</button>-->
-    <!--<button class="group-button" v-on:click="changeGroup('zubov')" v-bind:class="{ active : buttonActiveZubov }">Зубов</button>-->
-  <!--</div>-->
-  <!--<div class="row row_month">-->
-    <!--<i v-on:click="switchPreviousMonth" class="button ion-chevron-left"></i>-->
-    <!--<div v-for="month in months" v-if="month.id == currentMonth" class="month">{{ month.name }}</div>-->
-    <!--<div v-if="year != 2017" class="year">{{ year }}</div>-->
-    <!--<i v-on:click="switchNextMonth" class="button ion-chevron-right"></i>-->
-  <!--</div>-->
-  <!--<div class="container">-->
-    <!--<div class="row">-->
-      <!--<div v-for="day in days" class="cell cell_days">{{ day }}</div>-->
+<template>
+  <div id="app">
+    {{ msg }}
+    <!--<div class="row row_buttons">-->
+      <!--<button class="group-button" v-on:click="changeGroup('golubeva')" v-bind:class="{ active : buttonActiveGolubeva }">Голубева</button>-->
+      <!--<button class="group-button" v-on:click="changeGroup('sveshnikova')" v-bind:class="{ active : buttonActiveSveshnikova }">Свешникова</button>-->
+      <!--<button class="group-button" v-on:click="changeGroup('belov')" v-bind:class="{ active : buttonActiveBelov }">Белов</button>-->
+      <!--<button class="group-button" v-on:click="changeGroup('zubov')" v-bind:class="{ active : buttonActiveZubov }">Зубов</button>-->
     <!--</div>-->
-    <!--<div class="wrapper">-->
-      <!--<div-->
-          <!--v-for="element in computedArr"-->
-          <!--class="cell"-->
-          <!--v-bind:class="{ cell_hidden : !element.monthType, cell_daytime : element.workDay, cell_nighttime : element.workNigth }"-->
-      <!--&gt;-->
-        <!--{{ element.day }}-->
+    <!--<div class="row row_month">-->
+      <!--<i v-on:click="switchPreviousMonth" class="button ion-chevron-left"></i>-->
+      <!--<div v-for="month in months" v-if="month.id == currentMonth" class="month">{{ month.name }}</div>-->
+      <!--<div v-if="year != 2017" class="year">{{ year }}</div>-->
+      <!--<i v-on:click="switchNextMonth" class="button ion-chevron-right"></i>-->
+    <!--</div>-->
+    <!--<div class="container">-->
+      <!--<div class="row">-->
+        <!--<div v-for="day in days" class="cell cell_days">{{ day }}</div>-->
+      <!--</div>-->
+      <!--<div class="wrapper">-->
+        <!--<div-->
+            <!--v-for="element in computedArr"-->
+            <!--class="cell"-->
+            <!--v-bind:class="{ cell_hidden : !element.monthType, cell_daytime : element.workDay, cell_nighttime : element.workNigth }"-->
+        <!--&gt;-->
+          <!--{{ element.day }}-->
+        <!--</div>-->
       <!--</div>-->
     <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
-<template>
-  <div id="app">{{ msg }}</div>
+</div>
 </template>
 
 <script>
@@ -41,11 +41,6 @@
   }
 </script>
 
-<!--<script>-->
-<!--export default {-->
-  <!--name: 'app',-->
-<!--};-->
-<!--</script>-->
 
 <!--<script>-->
   <!--Date.prototype.daysInMonth = function() {-->
