@@ -4,11 +4,12 @@
       <div v-show="false">{{ msg }}</div>
       <div class="callboard__container">
         <div class="squad">
-          <squad name="Голубева" v-bind:id="0" v-bind:state="activeSquad[0]" v-on:removestyles="falseState"></squad>
-          <squad name="Зубов" v-bind:id="1" v-bind:state="activeSquad[1]" v-on:removestyles="falseState"></squad>
-          <squad name="Свешникова" v-bind:id="2" v-bind:state="activeSquad[2]" v-on:removestyles="falseState"></squad>
-          <squad name="Ворожцов" v-bind:id="3" v-bind:state="activeSquad[3]" v-on:removestyles="falseState"></squad>
+          <squad name="Голубева" v-bind:id="0" v-bind:state="activeSquad[0]" v-on:switchSquad="onSwitchSquad"></squad>
+          <squad name="Зубов" v-bind:id="1" v-bind:state="activeSquad[1]" v-on:switchSquad="onSwitchSquad"></squad>
+          <squad name="Свешникова" v-bind:id="2" v-bind:state="activeSquad[2]" v-on:switchSquad="onSwitchSquad"></squad>
+          <squad name="Ворожцов" v-bind:id="3" v-bind:state="activeSquad[3]" v-on:switchSquad="onSwitchSquad"></squad>
         </div>
+        <calendar></calendar>
       </div>
     </div>
     <!--<div class="row row_buttons">-->
@@ -42,20 +43,22 @@
 
 <script>
   import Squad from './components/Squad'
+  import Calendar from './components/Calendar'
 
   export default {
     name: 'app',
     data () {
       return {
-        msg: 'Test vue js',
+        msg: '',
         activeSquad: [false, false, false, false]
       }
     },
     components: {
       Squad,
+      Calendar,
     },
     methods: {
-      falseState: function (id) {
+      onSwitchSquad: function (id) {
         var i;
         for (i = 0; i < this.activeSquad.length; ++i) {
           this.activeSquad[i] = false;

@@ -1,7 +1,7 @@
 <template>
-    <div class="squad__item" :class="{ 'squad__item_active': state }" v-on:click="onClick()">
-      {{ name }}
-    </div>
+  <div class="squad__item" :class="{ 'squad__item_active': state }" v-on:click="onClick()">
+    {{ name }}
+  </div>
 </template>
 
 <script>
@@ -19,7 +19,7 @@
     },
     methods: {
       onClick: function () {
-        this.$emit('removestyles', this.id);
+        this.$emit('switchSquad', this.id);
       }
     }
   };

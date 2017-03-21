@@ -1,0 +1,13 @@
+.calendar {
+  width: 100%;
+  height: 500px;
+  border: 1px solid $blue-light;
+
+  &__month {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+  }
+}

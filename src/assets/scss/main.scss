@@ -1,5 +1,9 @@
-@import './partials/vars';
-@import './partials/sanitize';
-@import './partials/old_styles';
+// BASE
+@import 'base/sanitize';
+@import 'base/vars';
+@import 'base/old_styles';
+
+// PARTIALS
 @import './partials/callboard';
 @import './partials/squad';
+@import './partials/calendar';
