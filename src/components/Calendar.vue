@@ -6,26 +6,25 @@
       <div v-if="year != 2017" class="year">{{ year }}</div>
       <i v-on:click="switchNextMonth" class="button ion-chevron-right"></i>
     </div>
-
-    {{ firstDayInMonth }}
-    {{ lastDayInMonth }}
+    <div class="row">
+      <div v-for="day in days" class="cell cell_days">{{ day }}</div>
+    </div>
+    <div class="wrapper">
+      <div
+        v-for="item in daysArr"
+        class="cell"
+        v-bind:class="{ cell_hidden : !item.currentMonth }"
+      >
+        {{ item.day }}
+      </div>
+    </div>
   </div>
+
+
 
 </template>
 
 <script>
-  Date.prototype.daysInMonth = function() {
-    return 33 - new Date(this.getFullYear(), this.getMonth(), 33).getDate();
-  };
-
-  Date.prototype.firstDayInMonth = function() {
-    return new Date(this.getFullYear(), this.getMonth(), 1).getDay();
-  };
-
-  Date.prototype.lastDayInMonth = function() {
-    return new Date(this.getFullYear(), this.getMonth(), this.daysInMonth()).getDay();
-  };
-
   var date = new Date();
 
   export default {
@@ -34,9 +33,7 @@
       return {
         year: date.getFullYear(),
         month: date.getMonth(),
-        daysInMonth: date.daysInMonth(),
-        firstDayInMonth: date.firstDayInMonth(),
-        lastDayInMonth: date.lastDayInMonth(),
+        days: ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
         months: [
           { id: 0, name: 'Январь' },
           { id: 1, name: 'Февраль' },
@@ -51,6 +48,7 @@
           { id: 10, name: 'Ноябрь' },
           { id: 11, name: 'Декабрь' },
         ],
+        arr: [],
       }
     },
     methods: {
@@ -70,6 +68,95 @@
         } else {
           this.month = this.month + 1;
         }
+      },
+      calculateMonth: function (month) {
+        let returnMonth;
+        if (month  == 12) {
+          returnMonth = 0;
+        } else if (month == -1) {
+          returnMonth = 11;
+        } else {
+          returnMonth = month
+        }
+
+        return returnMonth;
+      },
+      calculateYearForPreviousMonth: function (month, year) {
+        let returnYear;
+        if (month  == 0) {
+          returnYear = year - 1;
+        } else {
+          returnYear = year
+        }
+
+        return returnYear;
+      },
+      calculateYearForNextMonth: function (month, year) {
+        let returnYear;
+        if (month  == 11) {
+          returnYear = year +1 ;
+        } else {
+          returnYear = year
+        }
+
+        return returnYear;
+      },
+      getDaysInMOnth: function (year, month) {
+        return 33 - new Date(year, month, 33).getDate();
+      }
+    },
+    computed: {
+      daysInCurrentMonth () {
+        return this.getDaysInMOnth(this.year, this.month);
+      },
+      firstDayInMonth () {
+        return new Date(this.year, this.month, 1).getDay();
+      },
+      lastDayInMonth () {
+        return new Date(this.year, this.month, this.daysInCurrentMonth).getDay();
+      },
+      daysArr () {
+        this.arr.length = 0;
+        let firstDayInMonth;
+        if (this.firstDayInMonth == 0) {
+          firstDayInMonth = 7;
+        } else {
+          firstDayInMonth = this.firstDayInMonth;
+        }
+
+        for (let i = 0; i < firstDayInMonth - 1; i++) {
+          this.arr.push({
+            day: this.getDaysInMOnth(this.year, this.month -1) - firstDayInMonth + 2 + i,
+            month: this.calculateMonth(this.month - 1),
+            currentMonth: false,
+            year: this.calculateYearForPreviousMonth(this.month, this.year),
+          });
+        }
+
+        for (let i = 1; i <= this.daysInCurrentMonth; i++) {
+          this.arr.push({
+            day: i,
+            month: this.month,
+            year: this.year,
+            currentMonth: true,
+          });
+        }
+
+        let lastDayInMonth;
+        if (this.lastDayInMonth == 0) {
+          lastDayInMonth = 7;
+        } else {
+          lastDayInMonth = this.lastDayInMonth;
+        }
+        for (let i = 1; i <= 7 - lastDayInMonth; i++) {
+          this.arr.push({
+            day: i,
+            month: this.calculateMonth(this.month + 1),
+            year: this.calculateYearForNextMonth(this.month, this.year),
+            currentMonth: false,
+          });
+        }
+        return this.arr;
       },
     }
   };
