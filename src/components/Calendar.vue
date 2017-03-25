@@ -19,9 +19,6 @@
       </div>
     </div>
   </div>
-
-
-
 </template>
 
 <script>
@@ -29,6 +26,9 @@
 
   export default {
     name: 'calendar',
+    props: {
+      squadInformation: Object,
+    },
     data () {
       return {
         year: date.getFullYear(),
@@ -49,11 +49,6 @@
           { id: 11, name: 'Декабрь' },
         ],
         arr: [],
-        workTime: {
-          day: 6,
-          month: 0,
-          year: 2017,
-        },
       }
     },
     methods: {
@@ -171,10 +166,10 @@
           });
         }
 
-        let timeYear = this.workTime.year;
-        let timeMonth = this.workTime.month;
-        let dayTimeDay = this.workTime.day;
-        let nightTimeDay = this.workTime.day + 1;
+        let timeYear = this.squadInformation.year;
+        let timeMonth = this.squadInformation.month;
+        let dayTimeDay = this.squadInformation.day;
+        let nightTimeDay = this.squadInformation.day + 1;
         this.arr.map(function (item) {
           let dayTimeOfTable = +new Date(timeYear, timeMonth, dayTimeDay) / (3600 * 24 * 1000);
           let dayCurrent = +new Date(item.year, item.month, item.day) / (3600 * 24 * 1000);

@@ -7,11 +7,6 @@
 <script>
   export default {
     name: 'squad',
-    data() {
-      return {
-        active: false,
-      };
-    },
     props: {
       name: String,
       state: Boolean,
