@@ -13,7 +13,7 @@
       <div
         v-for="item in daysArr"
         class="cell"
-        v-bind:class="{ cell_hidden : !item.currentMonth }"
+        v-bind:class="{ cell_hidden : !item.isCurrentMonth, cell_daytime : item.isDayShift, cell_nighttime : item.isNightShift }"
       >
         {{ item.day }}
       </div>
@@ -49,6 +49,11 @@
           { id: 11, name: 'Декабрь' },
         ],
         arr: [],
+        workTime: {
+          day: 6,
+          month: 0,
+          year: 2017,
+        },
       }
     },
     methods: {
@@ -127,18 +132,24 @@
         for (let i = 0; i < firstDayInMonth - 1; i++) {
           this.arr.push({
             day: this.getDaysInMOnth(this.year, this.month -1) - firstDayInMonth + 2 + i,
+            days: this.getDaysInMOnth(this.year, this.month -1),
             month: this.calculateMonth(this.month - 1),
-            currentMonth: false,
+            isCurrentMonth: false,
             year: this.calculateYearForPreviousMonth(this.month, this.year),
+            isDayShift: false,
+            isNightShift: false,
           });
         }
 
         for (let i = 1; i <= this.daysInCurrentMonth; i++) {
           this.arr.push({
             day: i,
+            days: this.getDaysInMOnth(this.year, this.month),
             month: this.month,
             year: this.year,
-            currentMonth: true,
+            isCurrentMonth: true,
+            isDayShift: false,
+            isNightShift: false,
           });
         }
 
@@ -151,11 +162,37 @@
         for (let i = 1; i <= 7 - lastDayInMonth; i++) {
           this.arr.push({
             day: i,
+            days: this.getDaysInMOnth(this.year, this.month + 1),
             month: this.calculateMonth(this.month + 1),
             year: this.calculateYearForNextMonth(this.month, this.year),
-            currentMonth: false,
+            isCurrentMonth: false,
+            isDayShift: false,
+            isNightShift: false,
           });
         }
+
+        let timeYear = this.workTime.year;
+        let timeMonth = this.workTime.month;
+        let dayTimeDay = this.workTime.day;
+        let nightTimeDay = this.workTime.day + 1;
+        this.arr.map(function (item) {
+          let dayTimeOfTable = +new Date(timeYear, timeMonth, dayTimeDay) / (3600 * 24 * 1000);
+          let dayCurrent = +new Date(item.year, item.month, item.day) / (3600 * 24 * 1000);
+          let nightTimeOfTable = +new Date(timeYear, timeMonth, nightTimeDay) / (3600 * 24 * 1000);
+
+          if (dayCurrent >= dayTimeOfTable) {
+            item.isDayShift = (dayCurrent - dayTimeOfTable) % 4 == 0;
+          } else {
+            item.isDayShift = (dayTimeOfTable - dayCurrent) % 4 == 0;
+          }
+
+          if (dayCurrent >= nightTimeOfTable) {
+            item.isNightShift = (dayCurrent - nightTimeOfTable) % 4 == 0;
+          } else {
+            item.isNightShift = (nightTimeOfTable - dayCurrent) % 4 == 0;
+          }
+        });
+
         return this.arr;
       },
     }
