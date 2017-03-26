@@ -3,7 +3,7 @@
     <div class="calendar__days">
       <div v-for="day in days" class="calendar__day">{{ day }}</div>
     </div>
-    <div class="calendar__body">
+    <div class="calendar__body" v-bind:class="{ 'calendar__body_left': isActionLeft, 'calendar__body_right': isActionRight }">
       <div
         v-for="item in daysArr"
         class="calendar__day"
@@ -61,10 +61,17 @@
           { id: 11, name: 'Декабрь' },
         ],
         arr: [],
+        isActionLeft: false,
+        isActionRight: false,
       };
     },
     methods: {
       switchPreviousMonth() {
+        this.isActionLeft = !this.isActionLeft;
+        const _this = this;
+        setTimeout(function(){
+          _this.isActionLeft = !_this.isActionLeft;
+        }, 400);
         if (this.month === 0) {
           this.month = 11;
           this.year = this.year - 1;
@@ -73,6 +80,11 @@
         }
       },
       switchNextMonth() {
+        this.isActionRight = !this.isActionRight;
+        const _this = this;
+        setTimeout(function(){
+          _this.isActionRight = !_this.isActionRight;
+        }, 400);
         if (this.month === 11) {
           this.month = 0;
           this.year = this.year + 1;
