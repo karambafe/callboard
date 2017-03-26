@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div class="callboard">
-      <div v-show="false">{{ msg }}</div>
       <div class="callboard__container">
         <div class="squad">
           <squad v-bind:name="squads[0].name" v-bind:id="0" v-bind:state="squads[0].isActive" v-on:switchSquad="onSwitchSquad"></squad>
@@ -9,7 +8,7 @@
           <squad v-bind:name="squads[2].name" v-bind:id="2" v-bind:state="squads[2].isActive" v-on:switchSquad="onSwitchSquad"></squad>
           <squad v-bind:name="squads[3].name" v-bind:id="3" v-bind:state="squads[3].isActive" v-on:switchSquad="onSwitchSquad"></squad>
         </div>
-        <calendar :squadInformation="squads[squadCurrent]"></calendar>
+        <calendar :squadInformation="squads[squadActive]"></calendar>
       </div>
     </div>
 </div>
@@ -59,11 +58,22 @@
     expires: 10000000,
   };
 
-  let currentSquad = getCookie('squad');
+  let squadsInformation = [
+    { name: 'Голубева', day: 27, month: 1, year: 2017, isActive: false },
+    { name: 'Cухарев', day: 28, month: 1, year: 2017, isActive: false },
+    { name: 'Ворожцов', day: 25, month: 1, year: 2017, isActive: false },
+    { name: 'Зубов', day: 26, month: 1, year: 2017, isActive: false },
+  ];
 
-  if (currentSquad == undefined) {
-    currentSquad = 0;
+  let squadCurrent = getCookie('squad');
+
+  if (squadCurrent == undefined) {
+    squadCurrent = 0;
   }
+
+  squadsInformation[squadCurrent].isActive = true;
+
+
 
   export default {
     name: 'app',
@@ -73,14 +83,8 @@
     },
     data () {
       return {
-        msg: '',
-        squads: [
-          { name: 'Голубева', day: 27, month: 1, year: 2017, isActive: false },
-          { name: 'Cухарев', day: 28, month: 1, year: 2017, isActive: false },
-          { name: 'Ворожцов', day: 25, month: 1, year: 2017, isActive: false },
-          { name: 'Зубов', day: 26, month: 1, year: 2017, isActive: false },
-        ],
-        squadCurrent: currentSquad,
+        squads: squadsInformation,
+        squadActive: squadCurrent,
       }
     },
     methods: {
@@ -90,7 +94,7 @@
           this.squads[i].isActive = false;
         }
         this.squads[id].isActive = true;
-        this.squadCurrent = id;
+        this.squadActive = id;
         setCookie('squad', id, options);
       },
     }
