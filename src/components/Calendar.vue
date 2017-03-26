@@ -7,7 +7,7 @@
       <div
         v-for="item in daysArr"
         class="calendar__day"
-        v-bind:class="{ calendar__day_hidden : !item.isCurrentMonth, calendar__day_day : item.isDayShift, calendar__day_night : item.isNightShift }"
+        v-bind:class="{ calendar__day_hidden : !item.isCurrentMonth, calendar__day_day : item.isDayShift, calendar__day_night : item.isNightShift, calendar__day_today : item.isToday }"
       >
         {{ item.day }}
       </div>
@@ -144,6 +144,7 @@
             year: this.calculateYearForPreviousMonth(this.month, this.year),
             isDayShift: false,
             isNightShift: false,
+            isToday: false,
           });
         }
 
@@ -156,6 +157,7 @@
             isCurrentMonth: true,
             isDayShift: false,
             isNightShift: false,
+            isToday: false,
           });
         }
 
@@ -174,6 +176,7 @@
             isCurrentMonth: false,
             isDayShift: false,
             isNightShift: false,
+            isToday: false,
           });
         }
 
@@ -185,6 +188,8 @@
           const dayTimeOfTable = +new Date(timeYear, timeMonth, dayTimeDay) / (3600 * 24 * 1000);
           const dayCurrent = +new Date(item.year, item.month, item.day) / (3600 * 24 * 1000);
           const nightTimeOfTable = +new Date(timeYear, timeMonth, nightTimeDay) / (3600 * 24 * 1000);
+
+          item.isToday = (dayCurrent - (+new Date(date.getFullYear(), date.getMonth(), date.getDate()) / (3600 * 24 * 1000))) === 0;
 
           if (dayCurrent >= dayTimeOfTable) { // eslint-disable-next-line no-param-reassign
             item.isDayShift = (dayCurrent - dayTimeOfTable) % 4 === 0;
