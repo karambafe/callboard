@@ -28,38 +28,36 @@
       return {
         endpoint: 'https://jsonplaceholder.typicode.com/posts',
         articles: [],
-        filterKey:'',
+        filterKey: '',
       };
     },
     methods: {
       getAllPOst() {
-        const options ={
+        const options = {
           params: {
             _limit: 10,
-          }
+          },
         };
-        this.$http.get(this.endpoint, options).then(function (response) {
+        this.$http.get(this.endpoint, options).then((response) => {
           this.articles = response.data;
-          console.log(this.articles);
-        }, function (error) {
-          // ошибка
-        })
+        }, (error) => {
+          console.log(error); // eslint-disable-line no-console
+        });
       },
     },
     computed: {
-      filteredData: function () {
-        var filterKey = this.filterKey && this.filterKey.toLowerCase();
-        var data = this.articles;
+      filteredData() {
+        const filterKey = this.filterKey && this.filterKey.toLowerCase();
+        let data = this.articles;
         if (filterKey) {
-          data = data.filter(function (row) {
-            return Object.keys(row).some(function (key) {
-              return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-            })
-          })
+          data = data.filter((row) => { // eslint-disable-line arrow-body-style
+            return Object.keys(row).some((key) => { // eslint-disable-line arrow-body-style
+              return String(row[key]).toLowerCase().indexOf(filterKey) > -1;
+            });
+          });
         }
-
         return data;
-      }
+      },
     },
     created() {
       this.getAllPOst();
