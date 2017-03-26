@@ -68,9 +68,9 @@
     methods: {
       switchPreviousMonth() {
         this.isActionLeft = !this.isActionLeft;
-        const _this = this;
-        setTimeout(function(){
-          _this.isActionLeft = !_this.isActionLeft;
+        const self = this;
+        setTimeout(() => {
+          self.isActionLeft = !self.isActionLeft;
         }, 400);
         if (this.month === 0) {
           this.month = 11;
@@ -81,9 +81,9 @@
       },
       switchNextMonth() {
         this.isActionRight = !this.isActionRight;
-        const _this = this;
-        setTimeout(function(){
-          _this.isActionRight = !_this.isActionRight;
+        const self = this;
+        setTimeout(() => {
+          self.isActionRight = !self.isActionRight;
         }, 400);
         if (this.month === 11) {
           this.month = 0;
@@ -200,8 +200,9 @@
           const dayTimeOfTable = +new Date(timeYear, timeMonth, dayTimeDay) / (3600 * 24 * 1000);
           const dayCurrent = +new Date(item.year, item.month, item.day) / (3600 * 24 * 1000);
           const nightTimeOfTable = +new Date(timeYear, timeMonth, nightTimeDay) / (3600 * 24 * 1000);
+          const today = +new Date(date.getFullYear(), date.getMonth(), date.getDate()) / (3600 * 24 * 1000); // eslint-disable-line max-len
 
-          item.isToday = (dayCurrent - (+new Date(date.getFullYear(), date.getMonth(), date.getDate()) / (3600 * 24 * 1000))) === 0;
+          item.isToday = (dayCurrent - today) === 0; // eslint-disable-line no-param-reassign
 
           if (dayCurrent >= dayTimeOfTable) { // eslint-disable-next-line no-param-reassign
             item.isDayShift = (dayCurrent - dayTimeOfTable) % 4 === 0;
