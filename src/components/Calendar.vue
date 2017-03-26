@@ -3,11 +3,11 @@
     <div class="calendar__days">
       <div v-for="day in days" class="calendar__day">{{ day }}</div>
     </div>
-    <div class="calendar__body">
+    <div class="calendar__body" v-bind:class="{ 'calendar__body_left': isActionLeft, 'calendar__body_right': isActionRight }">
       <div
         v-for="item in daysArr"
         class="calendar__day"
-        v-bind:class="{ calendar__day_hidden : !item.isCurrentMonth, calendar__day_day : item.isDayShift, calendar__day_night : item.isNightShift }"
+        v-bind:class="{ calendar__day_hidden : !item.isCurrentMonth, calendar__day_day : item.isDayShift, calendar__day_night : item.isNightShift, calendar__day_today : item.isToday }"
       >
         {{ item.day }}
       </div>
@@ -61,10 +61,17 @@
           { id: 11, name: 'Декабрь' },
         ],
         arr: [],
+        isActionLeft: false,
+        isActionRight: false,
       };
     },
     methods: {
       switchPreviousMonth() {
+        this.isActionLeft = !this.isActionLeft;
+        const self = this;
+        setTimeout(() => {
+          self.isActionLeft = !self.isActionLeft;
+        }, 400);
         if (this.month === 0) {
           this.month = 11;
           this.year = this.year - 1;
@@ -73,6 +80,11 @@
         }
       },
       switchNextMonth() {
+        this.isActionRight = !this.isActionRight;
+        const self = this;
+        setTimeout(() => {
+          self.isActionRight = !self.isActionRight;
+        }, 400);
         if (this.month === 11) {
           this.month = 0;
           this.year = this.year + 1;
@@ -144,6 +156,7 @@
             year: this.calculateYearForPreviousMonth(this.month, this.year),
             isDayShift: false,
             isNightShift: false,
+            isToday: false,
           });
         }
 
@@ -156,6 +169,7 @@
             isCurrentMonth: true,
             isDayShift: false,
             isNightShift: false,
+            isToday: false,
           });
         }
 
@@ -174,6 +188,7 @@
             isCurrentMonth: false,
             isDayShift: false,
             isNightShift: false,
+            isToday: false,
           });
         }
 
@@ -185,6 +200,9 @@
           const dayTimeOfTable = +new Date(timeYear, timeMonth, dayTimeDay) / (3600 * 24 * 1000);
           const dayCurrent = +new Date(item.year, item.month, item.day) / (3600 * 24 * 1000);
           const nightTimeOfTable = +new Date(timeYear, timeMonth, nightTimeDay) / (3600 * 24 * 1000);
+          const today = +new Date(date.getFullYear(), date.getMonth(), date.getDate()) / (3600 * 24 * 1000); // eslint-disable-line max-len
+
+          item.isToday = (dayCurrent - today) === 0; // eslint-disable-line no-param-reassign
 
           if (dayCurrent >= dayTimeOfTable) { // eslint-disable-next-line no-param-reassign
             item.isDayShift = (dayCurrent - dayTimeOfTable) % 4 === 0;
