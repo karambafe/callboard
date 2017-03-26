@@ -9,6 +9,7 @@
     <div class="row">
       <div v-for="day in days" class="cell cell_days">{{ day }}</div>
     </div>
+    {{ squadInformation.name }}
     <div class="wrapper">
       <div
         v-for="item in daysArr"
