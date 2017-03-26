@@ -12,7 +12,7 @@ Vue.material.registerTheme('default', {
   primary: 'blue',
   accent: 'red',
   warn: 'red',
-  background: 'white'
+  background: 'white',
 });
 
 /* eslint-disable no-new */

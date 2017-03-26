@@ -3,13 +3,14 @@ $onyx:              #151515 !default;
 $pink-light:        #FAF0E6 !default;
 $blue-light:        #2196f3 !default;
 
-//== Typography
-
 //== Media queries breakpoints
 //
 $screen-xs:           320px !default;
-$screen-sm:           660px !default;
+$screen-sm:           520px !default;
+$screen-md:           980px !default;
 
 //== Container sizes
 //
-$container-sm:        700px !default;
+$container-md:        700px !default;
+$container-sm:        500px !default;
+$container-xs:        320px !default;

@@ -3,11 +3,22 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-width: $container-sm;
   height: 100vh;
   background-color: $blue-light;
 
   &__container {
+    width: $container-md;
+  }
+}
+
+@media (max-width: $screen-md) {
+.callboard__container {
     width: $container-sm;
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .callboard__container {
+    width: 100vw;
   }
 }

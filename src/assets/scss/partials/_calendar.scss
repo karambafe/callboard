@@ -1,6 +1,5 @@
 .calendar {
   width: 100%;
-  height: 500px;
 
   &__days {
     display: flex;
@@ -19,7 +18,7 @@
     width: 50px;
     height: 50px;
     margin: 5px 20px;
-    font-size: 23px;
+    font-size: 21px;
     border-radius: 50%;
     line-height: 1;
 
@@ -51,9 +50,9 @@
     justify-content: space-between;
     align-items: center;
     width: 70%;
-    height: 50px;
+    height: 60px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 10px 0;
 
     &-wrapper {
       text-align: center;
@@ -81,4 +80,36 @@
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+@media (max-width: $screen-md) {
+  .calendar__day {
+    width: 40px;
+    height: 40px;
+    margin: 5px 15px;
+    font-size: 17px;
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .calendar__day {
+    width: 25px;
+    height: 25px;
+    margin: 5px 4vw;
+    font-size: 10px;
+
+    &_night {
+      border: 1px solid $blue-light;
+    }
+  }
+
+  .calendar__body {
+    height: 300px;
+  }
+}
+
+@media (max-width: 410px) {
+  .calendar__day {
+    margin: 5px 3.2vw;
+  }
 }
