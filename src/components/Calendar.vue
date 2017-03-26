@@ -1,21 +1,33 @@
 <template>
   <div class="calendar">
-    <div class="calendar__month">
-      <i v-on:click="switchPreviousMonth" class="button ion-chevron-left"></i>
-      <div v-for="item in months" v-if="item.id == month" class="month">{{ item.name }}</div>
-      <div v-if="year != 2017" class="year">{{ year }}</div>
-      <i v-on:click="switchNextMonth" class="button ion-chevron-right"></i>
+    <div class="calendar__days">
+      <div v-for="day in days" class="calendar__day">{{ day }}</div>
     </div>
-    <div class="row">
-      <div v-for="day in days" class="cell cell_days">{{ day }}</div>
-    </div>
-    <div class="wrapper">
+    <div class="calendar__body">
       <div
         v-for="item in daysArr"
-        class="cell"
-        v-bind:class="{ cell_hidden : !item.isCurrentMonth, cell_daytime : item.isDayShift, cell_nighttime : item.isNightShift }"
+        class="calendar__day"
+        v-bind:class="{ calendar__day_hidden : !item.isCurrentMonth, calendar__day_day : item.isDayShift, calendar__day_night : item.isNightShift }"
       >
         {{ item.day }}
+      </div>
+    </div>
+    <div class="calendar__month">
+      <div v-on:click="switchPreviousMonth">
+        <md-button class="md-icon-button">
+          <md-icon>navigate_before</md-icon>
+        </md-button>
+      </div>
+      <div class="calendar__month-wrapper">
+        <div v-for="item in months" v-if="item.id == month" class="calendar__month-title">{{ item.name }}</div>
+        <transition name="fade">
+          <div v-if="year != 2017" class="calendar__month-desc">{{ year }}</div>
+        </transition>
+      </div>
+      <div v-on:click="switchNextMonth">
+        <md-button class="md-icon-button">
+          <md-icon>navigate_next</md-icon>
+        </md-button>
       </div>
     </div>
   </div>
