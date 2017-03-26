@@ -15,44 +15,11 @@
 </template>
 
 <script>
+  import { setCookie, getCookie } from './assets/js/cookie'
+
   import Squad from './components/Squad'
   import Calendar from './components/Calendar'
 
-  function getCookie(name) {
-    var matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
-
-  function setCookie(name, value, options) {
-    options = options || {};
-
-    var expires = options.expires;
-
-    if (typeof expires == "number" && expires) {
-      var d = new Date();
-      d.setTime(d.getTime() + expires * 1000);
-      expires = options.expires = d;
-    }
-    if (expires && expires.toUTCString) {
-      options.expires = expires.toUTCString();
-    }
-
-    value = encodeURIComponent(value);
-
-    var updatedCookie = name + "=" + value;
-
-    for (var propName in options) {
-      updatedCookie += "; " + propName;
-      var propValue = options[propName];
-      if (propValue !== true) {
-        updatedCookie += "=" + propValue;
-      }
-    }
-
-    document.cookie = updatedCookie;
-  }
 
   const options = {
     expires: 10000000,
@@ -67,13 +34,11 @@
 
   let squadCurrent = getCookie('squad');
 
-  if (squadCurrent == undefined) {
+  if (!squadCurrent) {
     squadCurrent = 0;
   }
 
   squadsInformation[squadCurrent].isActive = true;
-
-
 
   export default {
     name: 'app',
