@@ -15,17 +15,17 @@
 </template>
 
 <script>
-  import { setCookie, getCookie } from './assets/js/cookie'
+  import { setCookie, getCookie } from './assets/js/cookie';
 
-  import Squad from './components/Squad'
-  import Calendar from './components/Calendar'
+  import Squad from './components/Squad';
+  import Calendar from './components/Calendar';
 
 
   const options = {
     expires: 10000000,
   };
 
-  let squadsInformation = [
+  const squadsInformation = [
     { name: 'Голубева', day: 27, month: 1, year: 2017, isActive: false },
     { name: 'Cухарев', day: 28, month: 1, year: 2017, isActive: false },
     { name: 'Ворожцов', day: 25, month: 1, year: 2017, isActive: false },
@@ -46,24 +46,24 @@
       Squad,
       Calendar,
     },
-    data () {
+    data() {
       return {
         squads: squadsInformation,
         squadActive: squadCurrent,
-      }
+      };
     },
     methods: {
-      onSwitchSquad: function (id) {
+      onSwitchSquad(id) {
         let i;
-        for (i = 0; i < this.squads.length; ++i) {
+        for (i = 0; i < this.squads.length; i += 1) {
           this.squads[i].isActive = false;
         }
         this.squads[id].isActive = true;
         this.squadActive = id;
         setCookie('squad', id, options);
       },
-    }
-  }
+    },
+  };
 </script>
 
 <style lang="scss">

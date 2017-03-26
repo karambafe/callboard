@@ -9,7 +9,6 @@
     <div class="row">
       <div v-for="day in days" class="cell cell_days">{{ day }}</div>
     </div>
-    {{ squadInformation.name }}
     <div class="wrapper">
       <div
         v-for="item in daysArr"
@@ -23,14 +22,14 @@
 </template>
 
 <script>
-  var date = new Date();
+  const date = new Date();
 
   export default {
     name: 'calendar',
     props: {
       squadInformation: Object,
     },
-    data () {
+    data() {
       return {
         year: date.getFullYear(),
         month: date.getMonth(),
@@ -50,85 +49,84 @@
           { id: 11, name: 'Декабрь' },
         ],
         arr: [],
-      }
+      };
     },
     methods: {
-      switchPreviousMonth: function() {
-        if (this.month == 0) {
+      switchPreviousMonth() {
+        if (this.month === 0) {
           this.month = 11;
           this.year = this.year - 1;
         } else {
           this.month = this.month - 1;
         }
       },
-
-      switchNextMonth: function() {
-        if (this.month == 11) {
+      switchNextMonth() {
+        if (this.month === 11) {
           this.month = 0;
           this.year = this.year + 1;
         } else {
           this.month = this.month + 1;
         }
       },
-      calculateMonth: function (month) {
+      calculateMonth(month) {
         let returnMonth;
-        if (month  == 12) {
+        if (month === 12) {
           returnMonth = 0;
-        } else if (month == -1) {
+        } else if (month === -1) {
           returnMonth = 11;
         } else {
-          returnMonth = month
+          returnMonth = month;
         }
 
         return returnMonth;
       },
-      calculateYearForPreviousMonth: function (month, year) {
+      calculateYearForPreviousMonth(month, year) {
         let returnYear;
-        if (month  == 0) {
+        if (month === 0) {
           returnYear = year - 1;
         } else {
-          returnYear = year
+          returnYear = year;
         }
 
         return returnYear;
       },
-      calculateYearForNextMonth: function (month, year) {
+      calculateYearForNextMonth(month, year) {
         let returnYear;
-        if (month  == 11) {
-          returnYear = year +1 ;
+        if (month === 11) {
+          returnYear = year + 1;
         } else {
-          returnYear = year
+          returnYear = year;
         }
 
         return returnYear;
       },
-      getDaysInMOnth: function (year, month) {
+      getDaysInMOnth(year, month) {
         return 33 - new Date(year, month, 33).getDate();
-      }
+      },
     },
     computed: {
-      daysInCurrentMonth () {
+      daysInCurrentMonth() {
         return this.getDaysInMOnth(this.year, this.month);
       },
-      firstDayInMonth () {
+      firstDayInMonth() {
         return new Date(this.year, this.month, 1).getDay();
       },
-      lastDayInMonth () {
+      lastDayInMonth() {
         return new Date(this.year, this.month, this.daysInCurrentMonth).getDay();
       },
-      daysArr () {
+      daysArr() {
         this.arr.length = 0;
         let firstDayInMonth;
-        if (this.firstDayInMonth == 0) {
+        if (this.firstDayInMonth === 0) {
           firstDayInMonth = 7;
         } else {
           firstDayInMonth = this.firstDayInMonth;
         }
 
-        for (let i = 0; i < firstDayInMonth - 1; i++) {
-          this.arr.push({
-            day: this.getDaysInMOnth(this.year, this.month -1) - firstDayInMonth + 2 + i,
-            days: this.getDaysInMOnth(this.year, this.month -1),
+        for (let i = 0; i < firstDayInMonth - 1; i += 1) {
+          this.arr.push({ // eslint-disable-next-line no-mixed-operators
+            day: this.getDaysInMOnth(this.year, this.month - 1) - firstDayInMonth + 2 + i,
+            days: this.getDaysInMOnth(this.year, this.month - 1),
             month: this.calculateMonth(this.month - 1),
             isCurrentMonth: false,
             year: this.calculateYearForPreviousMonth(this.month, this.year),
@@ -137,7 +135,7 @@
           });
         }
 
-        for (let i = 1; i <= this.daysInCurrentMonth; i++) {
+        for (let i = 1; i <= this.daysInCurrentMonth; i += 1) {
           this.arr.push({
             day: i,
             days: this.getDaysInMOnth(this.year, this.month),
@@ -150,12 +148,12 @@
         }
 
         let lastDayInMonth;
-        if (this.lastDayInMonth == 0) {
+        if (this.lastDayInMonth === 0) {
           lastDayInMonth = 7;
         } else {
           lastDayInMonth = this.lastDayInMonth;
         }
-        for (let i = 1; i <= 7 - lastDayInMonth; i++) {
+        for (let i = 1; i <= 7 - lastDayInMonth; i += 1) {
           this.arr.push({
             day: i,
             days: this.getDaysInMOnth(this.year, this.month + 1),
@@ -167,30 +165,32 @@
           });
         }
 
-        let timeYear = this.squadInformation.year;
-        let timeMonth = this.squadInformation.month;
-        let dayTimeDay = this.squadInformation.day;
-        let nightTimeDay = this.squadInformation.day + 1;
-        this.arr.map(function (item) {
-          let dayTimeOfTable = +new Date(timeYear, timeMonth, dayTimeDay) / (3600 * 24 * 1000);
-          let dayCurrent = +new Date(item.year, item.month, item.day) / (3600 * 24 * 1000);
-          let nightTimeOfTable = +new Date(timeYear, timeMonth, nightTimeDay) / (3600 * 24 * 1000);
+        const timeYear = this.squadInformation.year;
+        const timeMonth = this.squadInformation.month;
+        const dayTimeDay = this.squadInformation.day;
+        const nightTimeDay = this.squadInformation.day + 1;
+        this.arr.map((item) => {
+          const dayTimeOfTable = +new Date(timeYear, timeMonth, dayTimeDay) / (3600 * 24 * 1000);
+          const dayCurrent = +new Date(item.year, item.month, item.day) / (3600 * 24 * 1000);
+          const nightTimeOfTable = +new Date(timeYear, timeMonth, nightTimeDay) / (3600 * 24 * 1000);
 
-          if (dayCurrent >= dayTimeOfTable) {
-            item.isDayShift = (dayCurrent - dayTimeOfTable) % 4 == 0;
-          } else {
-            item.isDayShift = (dayTimeOfTable - dayCurrent) % 4 == 0;
+          if (dayCurrent >= dayTimeOfTable) { // eslint-disable-next-line no-param-reassign
+            item.isDayShift = (dayCurrent - dayTimeOfTable) % 4 === 0;
+          } else { // eslint-disable-next-line no-param-reassign
+            item.isDayShift = (dayTimeOfTable - dayCurrent) % 4 === 0;
           }
 
-          if (dayCurrent >= nightTimeOfTable) {
-            item.isNightShift = (dayCurrent - nightTimeOfTable) % 4 == 0;
-          } else {
-            item.isNightShift = (nightTimeOfTable - dayCurrent) % 4 == 0;
+          if (dayCurrent >= nightTimeOfTable) { // eslint-disable-next-line no-param-reassign
+            item.isNightShift = (dayCurrent - nightTimeOfTable) % 4 === 0;
+          } else { // eslint-disable-next-line no-param-reassign
+            item.isNightShift = (nightTimeOfTable - dayCurrent) % 4 === 0;
           }
+
+          return this.arr;
         });
 
         return this.arr;
       },
-    }
+    },
   };
 </script>

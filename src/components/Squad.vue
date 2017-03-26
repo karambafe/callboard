@@ -13,10 +13,10 @@
       id: Number,
     },
     methods: {
-      onClick: function () {
+      onClick() {
         this.$emit('switchSquad', this.id);
-      }
-    }
+      },
+    },
   };
 </script>
 
