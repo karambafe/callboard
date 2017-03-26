@@ -1,26 +1,17 @@
 <template>
   <div id="app">
-    <md-toolbar>
-      <h1 class="md-title" style="flex: 1">My Title</h1>
-      <md-button class="md-icon-button">
-        <md-icon>more_vert</md-icon>
-      </md-button>
-    </md-toolbar>
-
-    <md-button class="md-primary">Primary</md-button>
-    <md-avatar class="md-avatar-icon md-primary">
-      <md-icon>folder</md-icon>
-    </md-avatar>
     <div class="callboard">
-      <div class="callboard__container">
-        <div class="squad">
-          <squad v-bind:name="squads[0].name" v-bind:id="0" v-bind:state="squads[0].isActive" v-on:switchSquad="onSwitchSquad"></squad>
-          <squad v-bind:name="squads[1].name" v-bind:id="1" v-bind:state="squads[1].isActive" v-on:switchSquad="onSwitchSquad"></squad>
-          <squad v-bind:name="squads[2].name" v-bind:id="2" v-bind:state="squads[2].isActive" v-on:switchSquad="onSwitchSquad"></squad>
-          <squad v-bind:name="squads[3].name" v-bind:id="3" v-bind:state="squads[3].isActive" v-on:switchSquad="onSwitchSquad"></squad>
+      <md-card md-with-hover>
+        <div class="callboard__container">
+          <md-tabs md-fixed class="md-transparent" @change="onSwitchSquad">
+            <squad v-bind:name="squads[0].name" v-bind:id="0" v-bind:state="squads[0].isActive"></squad>
+            <squad v-bind:name="squads[1].name" v-bind:id="1" v-bind:state="squads[1].isActive"></squad>
+            <squad v-bind:name="squads[2].name" v-bind:id="2" v-bind:state="squads[2].isActive"></squad>
+            <squad v-bind:name="squads[3].name" v-bind:id="3" v-bind:state="squads[3].isActive"></squad>
+          </md-tabs>
+          <calendar :squadInformation="squads[squadActive]"></calendar>
         </div>
-        <calendar :squadInformation="squads[squadActive]"></calendar>
-      </div>
+      </md-card>
     </div>
 </div>
 </template>

@@ -1,7 +1,6 @@
 <template>
-  <div class="squad__item" :class="{ 'squad__item_active': state }" v-on:click="onClick()">
-    {{ name }}
-  </div>
+  <md-tab :class="{ 'squad__item_active': state }" :md-active="state" :md-label="name">
+  </md-tab>
 </template>
 
 <script>
@@ -11,11 +10,6 @@
       name: String,
       state: Boolean,
       id: Number,
-    },
-    methods: {
-      onClick() {
-        this.$emit('switchSquad', this.id);
-      },
     },
   };
 </script>
