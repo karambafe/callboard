@@ -1,5 +1,16 @@
 <template>
   <div id="app">
+    <md-toolbar>
+      <h1 class="md-title" style="flex: 1">My Title</h1>
+      <md-button class="md-icon-button">
+        <md-icon>more_vert</md-icon>
+      </md-button>
+    </md-toolbar>
+
+    <md-button class="md-primary">Primary</md-button>
+    <md-avatar class="md-avatar-icon md-primary">
+      <md-icon>folder</md-icon>
+    </md-avatar>
     <div class="callboard">
       <div class="callboard__container">
         <div class="squad">
@@ -19,7 +30,6 @@
 
   import Squad from './components/Squad';
   import Calendar from './components/Calendar';
-
 
   const options = {
     expires: 10000000,
@@ -67,5 +77,6 @@
 </script>
 
 <style lang="scss">
+  @import '../node_modules/vue-material/dist/vue-material.css';
   @import "assets/scss/main.scss";
 </style>
